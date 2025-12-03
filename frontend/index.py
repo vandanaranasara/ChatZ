@@ -46,8 +46,18 @@ elif page == "Upload File":
     """, unsafe_allow_html=True)
 
     # st.markdown('<div class="upload-block">', unsafe_allow_html=True)
+    
 
     st.subheader("📄 Upload PDF")
+    
+    st.markdown("""
+    <style>
+        div[data-testid="file-uploader"] label {
+            font-size: 80px;  /* Increase font size */
+            font-weight: bold; /* Make it bold like subheader */
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
 
@@ -77,36 +87,3 @@ elif page == "Chat":
     st.write("Start chatting with your bot here!")
 
 
-# import streamlit as st
-
-# # toggle icon state
-# if "sidebar" not in st.session_state:
-#     st.session_state.sidebar = False
-
-# # toggle function
-# def toggle_sidebar():
-#     st.session_state.sidebar = not st.session_state.sidebar
-
-# # toggle button (hamburger icon)
-# st.button("☰", on_click=toggle_sidebar)
-
-# # show / hide sidebar
-# if st.session_state.sidebar:
-#     with st.sidebar:
-#         st.title("Menu")
-#         page = st.radio("Go to:", ["Home", "Upload File", "Chat"])
-# else:
-#     page = "Home"   # default page when sidebar is hidden
-
-# # page content
-# if page == "Home":
-#     st.title("Home Page")
-#     st.write("Welcome to the ChatZ!")
-    
-# elif page == "Upload File":
-#     st.title("Upload File Page")
-#     st.write("Upload your pdf here!")
-
-# elif page == "Chat":
-#     st.title("Chat Page")
-#     st.write("Start chatting with your bot here!")

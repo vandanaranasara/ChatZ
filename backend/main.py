@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from backend.routers import upload, extract, chunk, embed, query
+from backend.routers import upload, extract,chunk,embed,query
 
 
 app = FastAPI(title="ChatZ")

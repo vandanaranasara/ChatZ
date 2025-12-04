@@ -1,89 +1,110 @@
 import streamlit as st
 import requests
 
-# toggle icon state
+API_URL = "http://127.0.0.1:8000"
+
+st.set_page_config(page_title="ChatZ", layout="wide")
+
+# ------------------------------------
+# CSS for better UI
+# ------------------------------------
+st.markdown("""
+<style>
+/* Center container for a cleaner look */
+.main-container {
+    max-width: 850px;
+    margin: auto;
+}
+
+/* Floating hamburger button */
+.hamburger-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 9999;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ------------------------------------
+# Toggle Sidebar State
+# ------------------------------------
 if "sidebar" not in st.session_state:
     st.session_state.sidebar = False
 
-# toggle function
 def toggle_sidebar():
     st.session_state.sidebar = not st.session_state.sidebar
 
-# toggle button (hamburger icon)
-st.button("☰", on_click=toggle_sidebar)
+# Floating Hamburger Button
+with st.container():
+    st.markdown('<div class="hamburger-btn">', unsafe_allow_html=True)
+    st.button("☰", on_click=toggle_sidebar)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-# show / hide sidebar
+# ------------------------------------
+# Sidebar
+# ------------------------------------
 if st.session_state.sidebar:
     with st.sidebar:
         st.title("Menu")
-        page = st.radio("Go to:", ["Home", "Upload File", "Chat"])
+        page = st.radio("Navigate:", ["Home", "Upload File", "Chat"])
 else:
-    page = "Home"   # default page when sidebar is hidden
+    page = "Home"
 
-# page content
+# Page Container
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
+
+# ------------------------------------
+# PAGE: HOME
+# ------------------------------------
 if page == "Home":
-    st.title("Home Page")
-    st.write("Welcome to the ChatZ!")
+    st.title("🏠 Home")
+    st.write("Welcome to **ChatZ** — your AI-powered assistant!")
     
 
+# ------------------------------------
+# PAGE: UPLOAD
+# ------------------------------------
 elif page == "Upload File":
-    # st.title("Upload File Page")
-    # st.write("Upload your pdf here!")
+    st.title("📤 Upload PDF")
+    st.write("Upload your document to process it.")
 
-    # -------------------------
-    # UPLOAD BLOCK (Box Style)
-    # -------------------------
-    st.markdown("""
-        <style>
-            .upload-block {
-                background: #ffffff;
-                padding: 20px;
-                border-radius: 15px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-                margin-top: 20px;
-            }
-        </style>
-    """, unsafe_allow_html=True)
+    uploaded_file = st.file_uploader("Select PDF File", type=["pdf"])
+    status = st.empty()
 
-    # st.markdown('<div class="upload-block">', unsafe_allow_html=True)
-    
-
-    st.subheader("📄 Upload PDF")
-    
-    st.markdown("""
-    <style>
-        div[data-testid="file-uploader"] label {
-            font-size: 80px;  /* Increase font size */
-            font-weight: bold; /* Make it bold like subheader */
-        }
-    </style>
-    """, unsafe_allow_html=True)
-
-    uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
-
-    # STATUS MESSAGE
-    status_placeholder = st.empty()
-
-    if uploaded_file is not None:
-        status_placeholder.info("📤 Uploading file to backend...")
-
+    # Upload function
+    def upload_to_backend(file):
+        status.info("📡 Uploading... Please wait.")
         try:
-            # send file to backend API
-            files = {"file": uploaded_file}
-            response = requests.post("http://127.0.0.1:8000/upload/upload_file", files=files)
+            files = {"file": file}
+            resp = requests.post(f"{API_URL}/upload/upload_file", files=files)
 
-            if response.status_code == 200:
-                status_placeholder.success("✅ File uploaded successfully!")
+            if resp.status_code == 200:
+                status.success("✅ File uploaded successfully!")
+                return resp.json()
             else:
-                status_placeholder.error(f"❌ Upload failed: {response.text}")
-
+                status.error(f"❌ Failed: {resp.text}")
+                return None
         except Exception as e:
-            status_placeholder.error(f"⚠️ Error: {e}")
+            status.error(f"⚠️ Error: {e}")
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Upload on file selection
+    if uploaded_file:
+        with st.spinner("Processing..."):
+            upload_to_backend(uploaded_file)
+            
 
-elif page == "Chat":
-    st.title("Chat Page")
-    st.write("Start chatting with your bot here!")
+# ------------------------------------
+# PAGE: EXTRACT
+# ------------------------------------
+
+# ------------------------------------
+# PAGE: EMBEDDING
+# ------------------------------------
+
+
+# ------------------------------------
+# PAGE: Chat
+# ------------------------------------
 
 

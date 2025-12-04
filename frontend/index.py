@@ -47,7 +47,7 @@ with st.container():
 if st.session_state.sidebar:
     with st.sidebar:
         st.title("Menu")
-        page = st.radio("Navigate:", ["Home", "Upload File", "Chat"])
+        page = st.radio("Navigate:", ["Home", "Upload File"])
 else:
     page = "Home"
 
@@ -91,13 +91,42 @@ elif page == "Upload File":
     # Upload on file selection
     if uploaded_file:
         with st.spinner("Processing..."):
-            upload_to_backend(uploaded_file)
+            response = upload_to_backend(uploaded_file)
+            if response and "file_id" in response:
+                st.session_state.uploaded_file_id = response["file_id"]
             
 
 # ------------------------------------
 # PAGE: EXTRACT
 # ------------------------------------
 
+if page == "Upload File":
+
+    # Only show extract if a file was successfully uploaded
+    if "uploaded_file_id" in st.session_state and st.session_state.uploaded_file_id:
+
+        st.markdown("---")
+        st.subheader("📑 Extract Text")
+        extract_status = st.empty()
+        preview_area = st.empty()
+
+        # Extract button
+        if st.button("🔍 Extract"):
+            with st.spinner("Extracting text..."):
+                try:
+                    file_id = st.session_state.uploaded_file_id
+                    resp = requests.get(f"{API_URL}/extract/{file_id}")
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        preview_text = data.get("preview_text", "")
+                        extract_status.success("✅ Text extracted successfully!")
+                        preview_area.text_area("Preview Extracted Text", preview_text, height=300)
+                    else:
+                        extract_status.error(f"❌ Extract failed: {resp.text}")
+                except Exception as e:
+                    extract_status.error(f"⚠️ Error: {e}")
+                    
+                    
 # ------------------------------------
 # PAGE: EMBEDDING
 # ------------------------------------

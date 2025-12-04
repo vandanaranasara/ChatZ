@@ -41,8 +41,8 @@ async def extract_pdf_text(file_id: str):
         out.write(extracted_text)
 
     # 4️⃣ Create preview (first lines or first 300 chars)
-    preview_lines = "\n".join(extracted_text.split("\n")[:5])  # first 5 lines
-    preview_chars = extracted_text[:300]                        # first 300 chars
+    preview_lines = "\n".join(extracted_text.split("\n")[:20])  # first 5 lines
+    preview_chars = extracted_text[:1000]                        # first 300 chars
 
     preview_text = preview_lines if len(preview_lines) > 0 else preview_chars
 

@@ -1,0 +1,239 @@
+ 
+ Support  Call Analysis   
+ 
+ 
+Internship Interim  Report  II   
+ 
+Submitted To  
+ 
+ 
+SVKM’s NMIMS,  
+Mukesh Patel School of Technology Management & Engineering , 
+ Shirpur Campus (M.H .)  
+ 
+Submitted by:  
+Mugdha  Upadhyay , 70022100466  
+ 
+ 
+Under The Supervision of:  
+ 
+Prof. Sachin Sonawane  
+(Computer Engineering, Assistant Professor)  
+and 
+Mr. Chirag Gupta  
+(Director)  
+ 
+ 
+ 
+ 
+ 
+DEPARTMENT OF  COMPUTER ENGINEERING  
+Mukesh Patel School of Technology Management & Engineering   
+ACADEMIC SESSION: 20 24-25  
+ 
+ Support Call Analysis   2024 -2025 
+ 
+ 
+  
+Student Email:  mugdha.upadhyay466@nmims.in  
+Home Phone:  6263527656  
+Work Phone:  6263527656  
+  
+Internship Organization Name:  Cuztomise Softech Pvt. Ltd.  
+Mailing  Address:  chirag@cuztomise.com  
+Internship Supervisor:  Mr. Chirag Gupta  
+Internship Supervisor Phone:  9425478321      
+Internship Supervisor Email:  chirag@cuztomise.com  
+  
+Faculty Mentor Name:  Mr. Chirag Gupta  
+Faculty Mentor Phone:  9425478321  
+Faculty Mentor Email:  chirag@cuztomise.com  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Support Call Analysis   2024 -2025 
+ 
+ 
+ TABLE OF CONTENTS  
+ 
+Sr. 
+No.  Chapter No.  Page  
+    
+1  Introduction  1 
+    
+    
+2  Reporting Period  1 
+    
+    
+3  Accomplish ment and Worked Performed  2-3 
+    
+    
+4  Academic Relevance  
+ 4 
+    
+5  Conclusion  4 
+    
+    
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Support Call Analysis   2024 -2025 
+ 
+ 
+1 
+ Introduction  
+Following the progress outlined in Interim Report I, this report details the work 
+accomplished during Weeks 8 to 15 of the internship at Cuztomise Softech Pvt. Ltd. 
+The primary objective during this phase was to enhance and finalize the Speech 
+Recognition -based Support Call Analysis System. Focus areas included refining the 
+transcription process using the Whisper model, improving data storage through SQL 
+Server integration, building a user -friendly Flask -based dashboard, and implementing 
+client -wise summary generation.  Significant efforts were dedicated to optimizing 
+audio preprocessing, handling edge cases, and enhancing user interface components 
+for better usability. The system was further extended to support real -time status 
+tracking, keyword -based analytics, and efficient retrieval of call data. This phase 
+marked the transition from development to deployment readiness, ensuring the 
+solution was robust, scalable, and ready for practical implementation in client 
+environments.   
+ 
+ 
+Reporting Period  
+This report covers the progres s made during weeks 8 -15 of the internship. The work 
+was structured into various phases, ensuring timely completion of milestones.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Support Call Analysis   2024 -2025 
+ 
+ 
+2 
+ Accomplishments and Work Performed  
+Week 8: Bug Fixes and Backend Optimization  
+• Addressed minor bugs in the transcription output format (extra white spaces, 
+punctuation errors).  
+• Implemented logging to track errors during Whisper model execution.  
+• Improved the API response format to return status codes and clear messages 
+for each audio file.  
+Week 9: Integration of SQL Server and API Development  
+• Established a secure connection between the Flask app and SQL Server.  
+• Created API endpoints for inserting and retrieving transcription data using 
+RESTful services.  
+• Added functionality to handle edge cases like duplicate file uploads or empty 
+audio files.  
+Week 10: Frontend UI Enhancements using Flask and HTML/CSS  
+• Designed a clean web dashboard to visualize audio files, transcription output, 
+and summary reports.  
+• Implemented filtering and search functionality based on client name, date, and 
+keywords.  
+• Added table views for status tracking of each support call (transcribed, 
+pending, error).  
+Week 11: Audio Preprocessing Improvements  
+• Added logic to trim silent segments from audio files before transcription.  
+• Normalized audio volume to enhance transcription accuracy.  
+• Improved error handling for corrupted or incompatible audio formats.  
+Week 12: Summary Generation and Keyword Analysis  
+• Integrated a summary generator to extract highlights from each transcription.  
+• Used keyword matching techniques to identify key concerns in support calls 
+(e.g., "not working", "payment issue").  
+• Stored summaries in the database and linked them to respective clients in the 
+dashboard.  
+Week 13: Dashboard Finalization and Client Analytics  
+• Finalized dashboard layout with client -wise summaries and audio file 
+statistics.  Support Call Analysis   2024 -2025 
+ 
+ 
+3 
+ • Implemented visual indicators (color codes) for transcription status and error 
+logs.  
+• Created a section for client insights showing recurring issues, call durations, 
+and word frequency.  
+Week 14: Testing, Debugging, and Code Optimization  
+• Conducted end -to-end testing of the portal including file upload, transcription, 
+database logging, and UI updates.  
+• Fixed UI responsiveness issues on smaller screens.  
+• Refactored code for better modularity and maintainability.  
+Week 15: Documentation and Final Presentation Preparation  
+• Documented the entire project structure including model usage, backend API 
+structure, database schema, and frontend logic.  
+• Prepared the final presentation slides for showcasing project flow, features, 
+and real -world impact.  
+• Collected feedback from mentors and incorporated final suggestions for 
+improvement.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Support Call Analysis   2024 -2025 
+ 
+ 
+4 
+  
+Academic Relevance  
+The second half of the internship provided a deeper practical application of concepts 
+learned during my academic coursework, especially in areas such as machine 
+learning, natural language processing, full -stack development, and database 
+management systems. The integration of OpenAI’s Whisper model into a real -world 
+application reinforced my understanding of deep learning and audio signal processing, 
+which were covered in courses on artificial intelligence and deep learning.  
+The design and development of the Flask -based web application aligned with 
+concepts from web technologies and software engineering, while working with SQL 
+Server and API integration reflected the principles of database systems and backend 
+development. Additionally, knowledge from data structures, Python programming, 
+and system design was essential in building scalable and efficient modules. This 
+experience bridged the gap between theory and practice, providing hands -on exposure 
+to industry -standard tools and frameworks.  
+ 
+ 
+Conclusion  
+The completion of the internship at Cuztomise Softech Pvt. Ltd. has been a valuable 
+and enriching experience. The final weeks of the internship focused on refining and 
+deploying the Speech Recognition -based Support Call Analysis System. This 
+involved building a robust pipeline from audio preprocessing to transcription using 
+the Whisper model, storing results in SQL Server, and presenting client -wise insights 
+via a responsive Flask dashboard.  Throughout the internship, I enhanced both my 
+technical and problem -solving skills while working on real -world business challenges. 
+The project not only improved my understanding of speech recognition and full -stack 
+development but also exposed me to collaborative development, debugging, and 
+deployment practices. This hands -on experience will greatly benefit my future 
+academic and professional pursuits in the field of software development and artificial 
+intelligence.  
+ 
+ 

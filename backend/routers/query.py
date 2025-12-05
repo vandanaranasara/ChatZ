@@ -1,42 +1,50 @@
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 import chromadb
-from chromadb.config import Settings
-from langchain_google_genai import GoogleGenerativeAIEmbeddings,ChatGoogleGenerativeAI
-from typing import List
+from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 
 router = APIRouter(prefix="/query", tags=["Query"])
 
+# Persistent client and collection
 chroma_client = chromadb.PersistentClient(path="chroma_db")
-collection = chroma_client.get_or_create_collection(
-    name="pdf_embeddings",
-    metadata={"hnsw:space": "cosine"}
-)
+collection = chroma_client.get_or_create_collection(name="pdf_collection")
 
+# Embedder
 embedder = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
 
+# Request body
+class QueryRequest(BaseModel):
+    question: str
+    file_id: str
+
 @router.post("/")
-async def query_pdf(question: str, file_id: str):
+async def query_pdf(data: QueryRequest):
+    question = data.question
+    file_id = data.file_id
+
+    # 1️⃣ Embed the question
     query_embedding = embedder.embed_query(question)
 
+    # 2️⃣ Run similarity search WITHOUT relying on chunk-specific IDs
     results = collection.query(
         query_embeddings=[query_embedding],
         n_results=3,
-        where={"file_id": file_id}
+        where={"file_id": file_id}  # Only main file_id
     )
 
-    chunks = results["documents"][0]
-    metadatas = results["metadatas"][0]
+    documents_list = results.get("documents", [])
+    metadatas_list = results.get("metadatas", [])
 
-    # Create answer context
-    context = "\n\n".join(chunks)
+    if not documents_list or not documents_list[0]:
+        raise HTTPException(404, "No embeddings found for this file.")
 
-    # Call Gemini to generate answer using retrieved context
+    # 3️⃣ Build context from retrieved chunks
+    context = "\n\n".join(documents_list[0])
 
+    # 4️⃣ Call LLM with context
     model = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
-
     prompt = f"""
-    You are a PDF question-answering AI. 
-    Use ONLY the context given below to answer.
+    Use ONLY the context below to answer the question.
 
     CONTEXT:
     {context}
@@ -44,20 +52,19 @@ async def query_pdf(question: str, file_id: str):
     QUESTION:
     {question}
 
-    Return answer in 4-5 lines.
+    Answer in 4–5 lines.
     """
-
     llm_response = model.invoke(prompt)
+    answer = llm_response.content
 
-    answer = llm_response.text
-
+    # 5️⃣ Return answer and sources
     return {
         "answer": answer,
         "sources": [
             {
-                "text": m["text"],
+                "text": m.get("text", ""),
                 "page": m.get("page", "Unknown")
             }
-            for m in metadatas
+            for m in metadatas_list[0]
         ]
     }

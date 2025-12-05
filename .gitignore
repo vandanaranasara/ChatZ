@@ -16,3 +16,6 @@ chroma_db/
 venv/
 .env
 *.log
+
+extracted_text
+upload_pdfs

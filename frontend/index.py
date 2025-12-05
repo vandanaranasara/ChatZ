@@ -121,6 +121,8 @@ if page == "Upload File":
                         preview_text = data.get("preview_text", "")
                         extract_status.success("✅ Text extracted successfully!")
                         preview_area.text_area("Preview Extracted Text", preview_text, height=300)
+                        st.session_state.extracted = True
+                        st.session_state.extracted_file_id = data["file_id"] 
                     else:
                         extract_status.error(f"❌ Extract failed: {resp.text}")
                 except Exception as e:
@@ -130,10 +132,91 @@ if page == "Upload File":
 # ------------------------------------
 # PAGE: EMBEDDING
 # ------------------------------------
+if page == "Upload File":
+    
+    if "extracted" in st.session_state and st.session_state.extracted:
 
+        st.markdown("---")
+        st.subheader("🧠 Create Embeddings")
+        embed_status = st.empty()
+
+        if st.button("Create Embeddings"):
+            with st.spinner("Creating embeddings..."):
+                try:
+                    file_id = st.session_state.get("extracted_file_id", st.session_state.uploaded_file_id)
+                    resp = requests.post(f"{API_URL}/embed/{file_id}")
+                    if resp.status_code == 200:
+                        embed_status.success("✅ Embeddings created successfully!")
+                        st.session_state.embeddings_done = True
+                        
+                    else:
+                        embed_status.error("❌ Could not create embeddings. Please retry after some time.")
+                        st.session_state.embeddings_done = False
+                except Exception as e:
+                    embed_status.error("⚠️ Unexpected error while creating embeddings. Please try again.")
+                    st.session_state.embeddings_done = False
 
 # ------------------------------------
 # PAGE: Chat
 # ------------------------------------
+# ------------------------------------
+# PAGE: QUERY
+# ------------------------------------
 
+if page == "Upload File":
 
+    if "uploaded_file_id" in st.session_state and st.session_state.uploaded_file_id:
+
+        st.markdown("---")
+        st.subheader("💬 Query PDF")
+
+        # Query textbox
+        question = st.text_input("Ask a question related to the uploaded PDF:")
+
+        if st.button("❓ Ask"):
+            if not question:
+                st.warning("Please enter a question.")
+            else:
+                with st.spinner("Searching..."):
+                    try:
+                        file_id = st.session_state.uploaded_file_id
+
+                        # Call backend query API
+                        resp = requests.post(
+                            f"{API_URL}/query/",
+                            json={"question": question, "file_id": file_id}
+                        )
+
+                        if resp.status_code == 200:
+                            data = resp.json()
+
+                            st.success("Answer Ready!")
+                            st.subheader("🧠 Answer")
+                            st.write(data["answer"])
+
+                            # Source details
+                            st.subheader("📄 Source Chunks")
+
+                            for src in data["sources"]:
+                                st.markdown(
+                                    f"""
+                                    <div style="
+                                        padding:12px;
+                                        border:1px solid #cccccc;
+                                        border-radius:8px;
+                                        margin-bottom:10px;
+                                        background-color:#F9F9F9;
+                                    ">
+                                        <b>Page:</b> {src.get("page", "N/A")} <br><br>
+                                        <b>Text:</b><br>
+                                        {src.get("text", "")}
+                                    </div>
+                                    """,
+                                    unsafe_allow_html=True
+                                )
+
+                        else:
+                            st.error(f"❌ Query failed: {resp.text}")
+
+                    except Exception as e:
+                        st.error(f"⚠️ Error: {e}")

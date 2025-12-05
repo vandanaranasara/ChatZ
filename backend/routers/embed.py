@@ -14,7 +14,8 @@ EXTRACT_DIR = "extracted_text"
 UPLOAD_DIR = "uploaded_pdfs"
 
 # Load API keys
-GoogleGenerativeAIEmbeddings.api_key = os.getenv("GOOGLE_API_KEY")
+#GoogleGenerativeAIEmbeddings.api_key = os.getenv("GOOGLE_API_KEY")
+google_api_key=os.getenv("GOOGLE_API_KEY")
 
 # ---------- NEW Chroma Persistent Client ----------
 client = PersistentClient(path="chroma_db")
@@ -99,3 +100,5 @@ async def delete_file_and_embeddings(file_id: str):
         os.remove(pdf_file)
 
     return {"message": "File + embeddings deleted", "file_id": file_id}
+
+

@@ -210,9 +210,8 @@ if page == "Upload File":
                                         margin-bottom:10px;
                                         background-color:#F9F9F9;
                                     ">
-                                        <b>Page:</b> {src.get("page", "N/A")} <br><br>
-                                        <b>Text:</b><br>
-                                        {src.get("text", "")}
+                                        <b>Page:</b> {src.get("page", "")} <br><br>
+                                   
                                     </div>
                                     """,
                                     unsafe_allow_html=True

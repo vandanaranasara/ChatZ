@@ -179,7 +179,10 @@ if page == "Upload File":
             else:
                 with st.spinner("Searching..."):
                     try:
-                        file_id = st.session_state.uploaded_file_id
+                        
+                        # 🔥 FIXED: Use extracted_file_id if available
+                        file_id = st.session_state.get("extracted_file_id", st.session_state.uploaded_file_id)
+                        # ------------------------------------------------------------------------------
 
                         # Call backend query API
                         resp = requests.post(

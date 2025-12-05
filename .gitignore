@@ -18,4 +18,4 @@ venv/
 *.log
 
 extracted_text
-upload_pdfs
+uploaded_pdfs

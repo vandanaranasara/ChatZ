@@ -59,15 +59,18 @@ async def query_pdf(data: QueryRequest):
     llm_response = model.invoke(prompt)
     answer = llm_response.content
 
-    # 5️⃣ Return answer and sources
+    # 5️⃣ Return answer and page number
+    
+    pages = [m.get("page", "Unknown") for m in metadatas_list[0]]
+
     return {
         "answer": answer,
         "sources": [
-            {
-                "text": m.get("text", ""),
-                "page": m.get("page", "Unknown")
-            }
-            for m in metadatas_list[0]
+            {"page": page}
+            for page in pages
         ]
     }
+
+
+    
 

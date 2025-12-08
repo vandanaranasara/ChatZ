@@ -102,4 +102,50 @@ elif page == "Query":
                     st.write(src)
 
             else:
+                with st.spinner("Searching..."):
+                    try:
+                        
+                        # 🔥 FIXED: Use extracted_file_id if available
+                        file_id = st.session_state.get("extracted_file_id", st.session_state.uploaded_file_id)
+                        # ------------------------------------------------------------------------------
+
+                        # Call backend query API
+                        resp = requests.post(
+                            f"{API_URL}/query/",
+                            json={"question": question, "file_id": file_id}
+                        )
+
+                        if resp.status_code == 200:
+                            data = resp.json()
+
+                            st.success("Answer Ready!")
+                            st.subheader("🧠 Answer")
+                            st.write(data["answer"])
+
+                            # Source details
+                            st.subheader("📄 Source Chunks")
+
+                            for src in data["sources"]:
+                                st.markdown(
+                                    f"""
+                                    <div style="
+                                        padding:12px;
+                                        border:1px solid #cccccc;
+                                        border-radius:8px;
+                                        margin-bottom:10px;
+                                        background-color:#F9F9F9;
+                                    ">
+                                        <b>Page:</b> {src.get("page", "")} <br><br>
+                                   
+                                    </div>
+                                    """,
+                                    unsafe_allow_html=True
+                                )
+
+                        else:
+                            st.error(f"❌ Query failed: {resp.text}")
+
+                    except Exception as e:
+                        st.error(f"⚠️ Error: {e}")
                 st.error(resp.text)
+

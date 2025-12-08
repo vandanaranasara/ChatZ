@@ -10,12 +10,15 @@
 chroma_db/
 *.db
 
-
-
 # Ignore virtual environments and dependency files
 venv/
 .env
 *.log
 
+
+extracted_text/
+uploaded_pdfs/
+
 extracted_text
 uploaded_pdfs
+

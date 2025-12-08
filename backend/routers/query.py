@@ -44,7 +44,7 @@ async def query_pdf(data: QueryRequest):
     context = "\n\n".join(documents_list[0])
 
     # 4️⃣ Call LLM with context
-    model = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
+    model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
     prompt = f"""
     Use ONLY the context below to answer the question.
 

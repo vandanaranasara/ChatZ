@@ -52,7 +52,7 @@ async def embed_and_store(file_id: str):
     with open(text_path, "r", encoding="utf-8") as f:
         text = f.read()
     logger.info(f"🔠 Loaded text for embedding ({len(text)} chars)")
-    chunks = chunk_text(text, chunk_size=500, overlap=50)
+    chunks = chunk_text(text, chunk_size=700, overlap=100)
 
     logger.info(f"📦 Total chunks to embed: {len(chunks)}")
 

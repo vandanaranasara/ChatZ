@@ -3,8 +3,8 @@ from backend.routers import upload, extract,chunk,embed,query
 from fastapi.middleware.cors import CORSMiddleware
 from backend.config import setup_logging
 import logging
-from backend.database import engine
-from backend.models import Base
+from backend.database import engine, Base
+
 
 setup_logging()
 logger = logging.getLogger("MainApp")

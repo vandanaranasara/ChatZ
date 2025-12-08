@@ -4,9 +4,8 @@ import uuid, os, logging, fitz
 from datetime import datetime
 from sqlalchemy.orm import Session
 from fastapi import Depends
-from backend.database import SessionLocal
+from backend.database import SessionLocal, get_db
 from backend.models import FileInfo
-from backend.database import get_db
 
 router = APIRouter(prefix="/upload", tags=["Upload"])
 logger = logging.getLogger("UploadRouter")

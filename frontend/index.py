@@ -114,6 +114,7 @@ if page == "Upload":
         else:
             st.error(resp.text)
 
+
 # ----------------------------
 # PAGE: EXTRACT
 # ----------------------------
@@ -170,10 +171,6 @@ elif page == "Query":
         if resp.status_code == 200:
             data = resp.json()
             st.success(data["answer"])
-
-            st.subheader("Sources")
-            for src in data["sources"]:
-                st.write(src)
 
         else:
             st.error(resp.text)

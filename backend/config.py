@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-LOG_DIR = os.getenv("logs")
+LOG_DIR = os.getenv("LOG_DIR")
 os.makedirs(LOG_DIR, exist_ok=True)
 
 def setup_logging():

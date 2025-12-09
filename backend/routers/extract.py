@@ -3,12 +3,14 @@ from fastapi.responses import JSONResponse
 import logging
 import os
 import PyPDF2
+from dotenv import load_dotenv
+load_dotenv()
 
 router = APIRouter(prefix="/extract", tags=["Extract"])
 logger = logging.getLogger("ExtractRouter")
 
-UPLOAD_DIR = "uploaded_pdfs"
-EXTRACT_DIR = "extracted_text"
+UPLOAD_DIR = os.getenv("UPLOAD_DIR")
+EXTRACT_DIR = os.getenv("EXTRACT_DIR")
 os.makedirs(EXTRACT_DIR, exist_ok=True)
 
 @router.get("/{file_id}")

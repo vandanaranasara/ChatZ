@@ -1,8 +1,11 @@
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from dotenv import load_dotenv
 
-LOG_DIR = "logs"
+load_dotenv()
+
+LOG_DIR = os.getenv("logs")
 os.makedirs(LOG_DIR, exist_ok=True)
 
 def setup_logging():

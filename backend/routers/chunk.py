@@ -1,10 +1,14 @@
 from fastapi import APIRouter, HTTPException
 import os
 import logging
+from dotenv import load_dotenv
+
+load_dotenv()
+
 router = APIRouter(prefix="/chunk", tags=["Chunk"])
 logger = logging.getLogger("ChunkRouter")
 
-EXTRACT_DIR = "extracted_text"
+EXTRACT_DIR = os.getenv("EXTRACT_DIR")
 
 
 def chunk_text(text, chunk_size=500, overlap=50):

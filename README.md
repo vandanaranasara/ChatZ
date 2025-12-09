@@ -214,6 +214,16 @@ uvicorn backend.main:app --reload
 streamlit run frontend/index.py
 ```
 
+## 📸 Screenshots
+
+| Upload | Extract |
+|-----------|------------|
+| ![Upload](screenshots/upload_page.png) | ![Extract](screenshots/extract_page.png) |
+
+| Embed | Query |
+|-----------|------------|
+| ![Embed](screenshots/embedding_page.png) | ![Query](screenshots/query_page.png) |
+
 ## 👥 Contributors
 
 - [Vandana Ranasara](https://github.com/vandanaranasara)

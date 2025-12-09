@@ -6,11 +6,15 @@ from sqlalchemy.orm import Session
 from fastapi import Depends
 from backend.database import SessionLocal, get_db
 from backend.models import FileInfo
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 router = APIRouter(prefix="/upload", tags=["Upload"])
 logger = logging.getLogger("UploadRouter")
 
-UPLOAD_DIR = "uploaded_pdfs"
+UPLOAD_DIR = os.getenv("UPLOAD_DIR")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 

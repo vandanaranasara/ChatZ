@@ -13,8 +13,8 @@ load_dotenv()
 router = APIRouter(prefix="/embed", tags=["Embedding"])
 logger = logging.getLogger("EmbedRouter")
 
-EXTRACT_DIR = "extracted_text"
-UPLOAD_DIR = "uploaded_pdfs"
+UPLOAD_DIR = os.getenv("UPLOAD_DIR")
+EXTRACT_DIR = os.getenv("EXTRACT_DIR")
 
 client = PersistentClient(path="chroma_db")
 

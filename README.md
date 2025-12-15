@@ -157,7 +157,6 @@ ChatZ/
 │   ├── routers/
 │   │   ├── upload.py      # Upload endpoint
 │   │   ├── extract.py     # Extract endpoint
-│   │   ├── chunk.py       # Chunking utility
 │   │   ├── embed.py       # Embedding endpoint
 │   │   └── query.py       # Query endpoint
 │   ├── models.py          # Database models

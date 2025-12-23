@@ -36,7 +36,7 @@ async def query_pdf(data: QueryRequest):
     )
 
     documents_list = results.get("documents", [])
-    metadatas_list = results.get("metadatas", [])
+    # metadatas_list = results.get("metadatas", [])
 
     if not documents_list or not documents_list[0]:
         raise HTTPException(404, "No embeddings found for this file.")
@@ -76,7 +76,4 @@ async def query_pdf(data: QueryRequest):
     return {
         "answer": answer
     }
-
-
     
-

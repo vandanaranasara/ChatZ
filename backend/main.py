@@ -36,3 +36,4 @@ app.include_router(upload.router)
 app.include_router(extract.router)
 app.include_router(embed.router)
 app.include_router(query.router)
+

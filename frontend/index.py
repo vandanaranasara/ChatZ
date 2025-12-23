@@ -47,7 +47,7 @@ def restrict(page):
 page = st.sidebar.radio("Navigation", ["Upload", "Extract", "Embed", "Query"])
 st.sidebar.markdown("### 📘 User Manual")
 st.sidebar.markdown("""
- Step 1: Upload your PDF in **Upload**.\n\n
+ Step 1: Upload your PDF in  **Upload**.\n\n
  Step 2: Extract text from the file in **Extract**.\n\n
  Step 3: Generate AI embeddings in **Embed**.\n\n
  Step 4: Ask questions about your PDF in **Query**.\n\n

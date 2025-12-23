@@ -25,7 +25,7 @@ async def extract_pdf_text(file_id: str):
 
     extracted_path = os.path.join(EXTRACT_DIR, f"{file_id}.txt")
 
-    # 2️⃣ Extract text using PyPDF2
+    # 2️⃣ Extract text using PyPDF2 
     try:
         with open(pdf_path, "rb") as f:
             reader = PyPDF2.PdfReader(f)
